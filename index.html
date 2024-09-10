@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KnowHow-Computer Editor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&amp;family=Roboto+Mono:ital,wght@0,100..700;1,100..700&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/editor/editor.main.css">
+    <script src="https://kit.fontawesome.com/87b26c3ff4.js" crossorigin="anonymous"></script>
+    <style>
+        /* Make the body and html elements take up the full height */
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden; /* Prevent scrolling */
+            background-color: #1e1e1e;
+        }
+        /* Style the container to add space at the top and fill the remaining viewport */
+        #container {
+            position: fixed;
+            width: 100%;
+            height: calc(100% - 50px); /* Adjust height to account for top space */
+            top: 50px;
+        }
+        .navbar {
+            background-color: #1e1e1e;
+            width: 100%;
+            height: 50px;
+            margin-bottom: calc(100% - 50px);
+            z-index: 10;
+            position: fixed; 
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .navbar a {
+            background-color: #2a2d2e;
+            color: #858585;
+            text-align: center;
+            text-decoration: none;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            margin-top: 4px;
+            margin-bottom: 4px;
+            margin-left: 2px;
+            margin-right: 2px;
+            height: calc(100% - 8px);
+            padding-left: 10px;
+            padding-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-family: Fira Code, Consolas, 'Courier New', monospace;
+            cursor: pointer;
+        }
+        .navbar a:hover {
+            color: #c6c6c6;
+            font-weight: 500;
+        }
+        .navbar h1 {
+            font-family: Fira Code, Consolas, 'Courier New', monospace;
+            color: #c6c6c6;
+            font-weight: 600;
+            margin: 10px;
+        }
+        .copyMessage {
+            pointer-events: none;
+            height: 80px;
+            bottom: 0;
+            position: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            width: 100%;
+            transition: transform 0.5s ease-in-out; /* Transition for smooth movement */
+            transform: translateY(80px); /* Initial position */
+        }
+
+        .cm {
+            display: flex;
+            align-items: center;        /* Center items vertically within the container */
+            justify-content: space-between; /* Space between text and icon */
+            background-color: #2a2d2e;
+            padding-left: 20px;
+            padding-right: 20px;
+            height: 55px;
+            border-radius: 15px;
+            width: auto; /* Ensures the width adjusts to content */
+        }
+
+        .cm p {
+            font-weight: 500;
+            font-family: Nunito;
+            color: #c6c6c6;
+            margin: 0; /* Remove default margin */
+        }
+
+        .cm i {
+            font-size: 24px; /* Adjust icon size as needed */
+        }
+
+        .checkmark {
+            color: #5ce65c;
+        }
+
+        .xmark {
+            color: #cd1c18;
+        }
+
+        .question {
+            color: #c6c6c6;
+        }
+        .warningAlert {
+            pointer-events: all;
+            position: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out; /* Transition for smooth movement */
+            background-color: #00000069;
+            height: 100%;
+            width: 100%;
+        }
+
+        .wa {
+            position: fixed;
+            background-color: #2a2d2e;
+            padding-left: 25px;
+            padding-right: 20px;
+            height: auto;
+            /* max-width: 90%; */
+            border-radius: 25px;
+            width: auto; /* Ensures the width adjusts to content */
+        }
+
+        .wa h3 {
+            line-height: 0px;
+            font-weight: 700;
+            font-family: Nunito;
+            color: #c6c6c6;
+            margin-right: 25px;
+            font-size: 50px;
+        }
+
+        .wa p {
+            line-height: 15px;
+            /* font-weight: 500; */
+            font-family: Nunito;
+            color: #c6c6c6;
+            margin-right: 25px;
+            font-size: 25px;
+        }
+
+        .wa i {
+            position: absolute;
+            top: 15px; /* Distance from the top edge */
+            right: 18px; /* Distance from the right edge */
+            font-size: 24px; /* Adjust size as needed */
+            color: #858585; /* Red color for the xmark */
+            cursor: pointer; /* Indicate it's clickable */
+            transition: color 0.2s ease-in-out; /* Transition for smooth movement */
+        }
+
+        .wa i:hover {
+            color: #c6c6c6; /* Red color for the xmark */
+        }
+        .wa #wa-btn {
+            background-color: #3e4446;
+            color: #858585;
+            text-align: center;
+            text-decoration: none;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            margin-bottom: 16px;
+            margin-left: 4px;
+            margin-right: 4px;
+            height: calc(100% - 8px);
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            font-family: Fira Code, Consolas, 'Courier New', monospace;
+            cursor: pointer;
+        }
+        .wa #wa-btn:hover {
+            background-color: #3e4446;
+            color: #c6c6c6;
+            font-weight: 500;
+        }
+        .wa #wa-btn-error {
+            background-color: #463e3e;
+            color: #ffa896;
+            text-align: center;
+            text-decoration: none;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            margin-bottom: 16px;
+            margin-left: 4px;
+            margin-right: 4px;
+            height: calc(100% - 8px);
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            font-family: Fira Code, Consolas, 'Courier New', monospace;
+            cursor: pointer;
+        }
+        .wa #wa-btn-error:hover {
+            background-color: #423636;
+            color: #ff9681;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div id="cm" class="copyMessage">
+        <div class="cm">
+            <i id="cm-icon" class="fa-regular fa-circle-question question"></i>
+            <p>​ ​ ​</p>
+            <p id="cm-message">You didn't copy something yet 🤨</p>
+        </div>
+    </div>
+    <div class="navbar">
+        <h1>KnowHow-Computer Script editor</h1>
+        <a id="btn-copy" title="Copy the code in correct form (recommended)">Copy&nbsp;Code</a>
+        <a href="https://khc.lehrerlezius.de/#assemblerdiv" target="_blank" rel="noopener noreferrer" title="Open KnowHow-Assembler">Open&nbsp;Website</a>
+    </div>
+    <div style="background: linear-gradient(to bottom, rgb(16, 16, 16) 0%, rgba(16, 16, 16, 0) 100%); width: 100%; height: 5px; margin-top: 50px; margin-bottom: calc(100% - 55px); z-index: 9; position: fixed; opacity: 0.5;"></div>
+    <div id="wa" class="warningAlert">
+        <div class="wa">
+            <a><i id="wa-xmark" class="fa-solid fa-xmark"></i></a>
+            <h3 id="wa-title">Your Code has Errors!</h3>
+            <p id="wa-message">Your Code will probably not work correctly when used in website!</p>
+            <p>Your Codes problems are the following:</p>
+            <p id="wa-problem" style="font-weight: 600;"><span style="color: #ffa896;">0</span> <span style="color: #cd1c18;">Errors</span> and <span style="color: #ffea99;">0</span> <span style="color: #ffde21;">Warnings</span>.</p>
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <a id="wa-btn-error">Copy anyway</a>
+                <a id="wa-btn">Cancel</a>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    
+    <div id="container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/loader.js"></script>
+    <script>
+        var errors = 0
+        var warnings = 0
+        var incorrectVar = ""
+        const languageDir = {
+            "commandUnknown": 'Unknown command.',
+            "jmpIncorrect": `Invalid syntax: "jmp" must be followed by a number.`,
+            "jmpMissing": `Missing syntax: "jmp" must be followed by a number.`,
+            "decMissing": `Missing syntax: "dec" must be followed by a variable.`,
+            "incMissing": `Missing syntax: "inc" must be followed by a variable.`,
+            "iszMissing": `Missing syntax: "isz" must be followed by a variable.`,
+            "jmpRange": 'Invalid syntax: "jmp" syntax is out of range.',
+            "jmpLoop": 'Infinite loop: "jmp" will loop infinitly.',
+            "decIncorrect": `Invalid syntax: "dec" must be followed by an variable.`,
+            "incIncorrect": `Invalid syntax: "inc" must be followed by an variable.`,
+            "iszIncorrect": `Invalid syntax: "isz" must be followed by an variable.`,
+            "stpExtra": `Extra call in syntax: "stp" doesn't have an other argument.`
+        };
+        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs' }});
+        require(['vs/editor/editor.main'], function() {
+            monaco.editor.defineTheme('knowhow-dark', {
+                base: 'vs-dark',
+                inherit: true,
+                colors: {},
+                rules: [
+                    { token: 'end', foreground: 'E86056' },
+                    { token: 'error', foreground: 'FF0000' },
+                    { token: 'function', foreground: 'E5C07B' }
+                ],
+            });
+            
+            // Define knowhow as a new language
+            monaco.languages.register({ id: 'knowhow' });
+            
+            // Define syntax highlighting for knowhow
+            monaco.languages.setMonarchTokensProvider('knowhow', {
+                tokenizer: {
+                    root: [
+                        // [/jmp\s+\d+/, 'keyword'],
+                        // [/jmp\s+\D/, 'error'],
+                        [/dec|inc|isz|jmp/, 'keyword'], // Instructions
+                        [/[A-Z_][A-Z_]*/, 'variable'], // Registers
+                        [/(#|;).*$/, 'comment'], // Comments
+                        [/[0-9]+/, 'number'], // Numbers
+                        // [/[\[\]]/, 'delimiter'], // Brackets
+                        [/stp/, 'end'], // Brackets
+                        [/position/, 'number'], // Hover Text
+                        [/variable/, 'variable'], 
+                        [/function/, 'function']
+                    ]
+                }
+            });
+            
+            // Register knowhow's language configuration (brackets, comments, etc.)
+            monaco.languages.setLanguageConfiguration('knowhow', {
+                comments: {
+                    lineComment: /#|;/ // Single-line comments
+                },
+                brackets: [['[', ']']],
+                autoClosingPairs: [
+                    { open: '[', close: ']' }
+                ]
+            });
+
+
+            monaco.languages.registerCompletionItemProvider('knowhow', {
+                provideCompletionItems: function(model, position) {
+                    const wordUntilPosition = model.getWordUntilPosition(position);
+                    const word = wordUntilPosition.word;
+
+                    const suggestions = [
+                        {
+                            label: 'isz',
+                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            insertText: 'isz',
+                            documentation: {
+                                value: 'Instruction for increment and skip zero'
+                            }
+                        },
+                        {
+                            label: 'jmp',
+                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            insertText: 'jmp',
+                            documentation: {
+                                value: 'Jump to a specified line'
+                            }
+                        },
+                        {
+                            label: 'dec',
+                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            insertText: 'dec',
+                            documentation: {
+                                value: 'Decrement the value'
+                            }
+                        },
+                        {
+                            label: 'inc',
+                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            insertText: 'inc',
+                            documentation: {
+                                value: 'Increment the value'
+                            }
+                        },
+                        {
+                            label: 'stp',
+                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            insertText: 'stp',
+                            documentation: {
+                                value: 'Stop execution'
+                            }
+                        }
+                    ];
+
+                    // Filter suggestions based on the current word
+                    return {
+                        suggestions: suggestions.filter(item => item.label.startsWith(word))
+                    };
+                }
+            });
+
+            monaco.languages.registerHoverProvider('knowhow', {
+                provideHover: function(model, position) {
+                    // Get the word at the current position
+                    const word = model.getWordAtPosition(position);
+
+                    if (!word || !word.word.match(/^isz|jmp|dec|inc|stp$/)) {
+                        return null;
+                    }
+
+                    // if (word.word.match(/\))
+
+                    // Define some hover information
+                    const commandDocs = {
+                        "isz": { value: `\`${word.word}\` or "is zero", jumps two lines infront if variable is zero and jumps to next line instead if it isn't.` },
+                        "jmp": { value: `\`${word.word}\` or "jump", goes to specified line number next.` },
+                        "dec": { value: `\`${word.word}\` or "decrease", decreases variable by one.` },
+                        "inc": { value: `\`${word.word}\` or "increase", increases variable by one.` },
+                        "stp": { value: `\`${word.word}\` or "stop", stops the program.` }
+                    };
+                    const commandUsage = {
+                        "isz": `(function) ${word.word} variable`,
+                        "jmp": `(function) ${word.word} position`,
+                        "dec": `(function) ${word.word} variable`,
+                        "inc": `(function) ${word.word} variable`,
+                        "stp": `(function) ${word.word}`
+                    }
+
+                    // Return the hover information
+                    return {
+                        contents: [
+                            { value: `
+    ${commandUsage[(word.word)]}` }, // Markdown or plain text
+                            commandDocs[(word.word)]
+                        ]
+                    };
+                }
+            });
+
+            
+            // Create the Monaco Editor instance
+            const editor = monaco.editor.create(document.getElementById("container"), {
+                value: [
+                    'jmp 3',
+                    'inc A',
+                    'dec B',
+                    "isz B",
+                    "jmp 1",
+                    "stp"
+                ].join('\n'),
+                language: 'knowhow',
+                lineNumbers: function(lineNumber) {
+                    var lineOffset = 1
+                    editor.getModel().getValue().split("\n").forEach((line, index) => {
+                        if (index < lineNumber) {
+                            if (line.slice(0, 1) == "#") {
+                                lineOffset += 1;
+                            }
+                            if (line.slice(0, 1) == " ") {
+                                lineOffset += 1;
+                            }
+                            if (line.slice(0, 1) == "") {
+                                lineOffset += 1;
+                            }
+                        }
+                    });
+                    if (editor.getModel().getValue().split("\n")[lineNumber - 1].slice(0, 1) == (" "|"") || editor.getModel().getValue().split("\n")[lineNumber - 1].slice(0, 1) == "#") {
+                        return "";
+                    }
+                    newLineNumber = lineNumber - lineOffset
+                    if (newLineNumber == 0) {
+                        return "0";
+                    }
+                    return newLineNumber; // Start line numbers at 0
+                },
+                lineNumbersMinChars: 3, // Optional: Adjust width of line number gutter
+                theme: 'knowhow-dark',
+                fontSize: 16
+            });
+
+            // Function to perform validation and set markers
+            function validate() {
+                const model = editor.getModel();
+                const text = model.getValue();
+                const lines = text.split('\n');
+                const markers = [];
+                errors = 0;
+                warnings = 0;
+
+                lines.forEach((line, index) => {
+                    // Check for 'jmp' followed by non-numeric
+                    const matches = {
+                        "commandUnknown": (!line.match(/^((isz|jmp|dec|inc)\s+)|(stp$)/) && line.replace(" ", "") != "" && !line.match(/^#|;/)) && !line.match(/^stp\s*$/),
+                        "jmpIncorrect": line.match(/^jmp\s+\d*\D+\d*$/) || line.match(/^jmp\s\D+\d+\D+$/),
+                        "jmpDecIncIszMissing": line.match(/^(jmp|dec|inc|isz)\s*$/),
+                        "stpExtra": line.slice(4) != "" && !(line.slice(4).replace(" ", "") != "") && line.match(/^stp\s+/) && !line.match(/^stp\s\s$/),
+                        "jmpRange": lines.length <= parseInt(line.slice(4)),
+                        "jmpLoop": index == parseInt(line.slice(4)),
+                        "decIncIszIncorrect": line.match(/^(dec|inc|isz)\s+[A-Z]*[^A-Z]+[A-Z]*$/) || line.match(/^(dec|inc|isz)\s[^A-Z]+[A-Z]+[^A-Z]+$/)
+                    };
+                    if (matches["jmpDecIncIszMissing"]) {
+                        errors += 1;
+                        markers.push({
+                            severity: monaco.MarkerSeverity.Error,
+                            message: languageDir[line.slice(0, 3) + "Missing"],
+                            startLineNumber: index + 1,
+                            startColumn: 1,
+                            endLineNumber: index + 1,
+                            endColumn: 4
+                        });
+                    } else if (matches["jmpIncorrect"]) {
+                        errors += 1;
+                        markers.push({
+                            severity: monaco.MarkerSeverity.Error,
+                            message: languageDir["jmpIncorrect"],
+                            startLineNumber: index + 1,
+                            startColumn: 5,
+                            endLineNumber: index + 1,
+                            endColumn: line.length + 1
+                        });
+                    } else if (matches["decIncIszIncorrect"]) {
+                        errors += 1;
+                        markers.push({
+                            severity: monaco.MarkerSeverity.Error,
+                            message: languageDir[line.slice(0, 3) + "Incorrect"],
+                            startLineNumber: index + 1,
+                            startColumn: 5,
+                            endLineNumber: index + 1,
+                            endColumn: line.length + 1
+                        });
+                    } else if (matches["jmpRange"]) {
+                        errors += 1;
+                        markers.push({
+                            severity: monaco.MarkerSeverity.Error,
+                            message: languageDir["jmpRange"],
+                            startLineNumber: index + 1,
+                            startColumn: 5,
+                            endLineNumber: index + 1,
+                            endColumn: line.length + 1
+                        });
+                    } else if (matches["jmpLoop"]) {
+                        warnings += 1;
+                        markers.push({
+                            severity: monaco.MarkerSeverity.Warning,
+                            message: languageDir["jmpLoop"],
+                            startLineNumber: index + 1,
+                            startColumn: 1,
+                            endLineNumber: index + 1,
+                            endColumn: line.length + 1
+                        });
+                    } else if (matches["stpExtra"]) {
+                        errors += 1;
+                        markers.push({
+                            severity: monaco.MarkerSeverity.Error,
+                            message: languageDir["stpExtra"],
+                            startLineNumber: index + 1,
+                            startColumn: 5,
+                            endLineNumber: index + 1,
+                            endColumn: line.length + 1
+                        });
+                    } else if (matches["commandUnknown"]) {
+                        warnings += 1;
+                        markers.push({
+                            severity: monaco.MarkerSeverity.Warning,
+                            message: languageDir["commandUnknown"],
+                            startLineNumber: index + 1,
+                            startColumn: 1,
+                            endLineNumber: index + 1,
+                            endColumn: line.length + 1
+                        });
+                    }
+                });
+
+                // Set markers to show errors
+                monaco.editor.setModelMarkers(model, 'owner', markers);
+            }
+
+            // var codeActionCount = 0
+
+            // monaco.languages.registerCodeActionProvider('knowhow', {
+            //     provideCodeActions: function(model, range, context, token) {
+            //         const actions = [];
+
+            //         // Check if there's an error in the range that matches 'jmp' error
+                    
+            //         context.markers.forEach(marker => {
+            //             codeActionCount += 1
+            //             if (marker.message === languageDir["commandUnknown"]) {
+            //                 actions.push({
+            //                     title: 'Replace with "jmp 0"',
+            //                     kind: 'quickfix',
+            //                     edit: {
+            //                         edits: {
+            //                             resource: editor.getModel().uri,
+            //                             textEdit: {
+            //                                 range: new monaco.Range(marker.startLineNumber, marker.startColumn, marker.endLineNumber, marker.endColumn),
+            //                                 text: String(marker.startLineNumber)
+            //                             },
+            //                             versionId: codeActionCount
+            //                         }
+            //                     },
+            //                     isPreferred: true
+            //                 });
+            //             } else if (marker.message === languageDir["jmpIncorrect"]) {
+            //                 actions.push({
+            //                     title: `Replace with "jmp ${marker.startLineNumber}"`,
+            //                     kind: 'quickfix',
+            //                     edit: {
+            //                         resource: editor.getModel().uri,
+            //                         textEdit: {
+            //                             range: new monaco.Range(marker.startLineNumber, marker.startColumn, marker.endLineNumber, marker.endColumn),
+            //                             text: String(marker.startLineNumber)
+            //                         },
+            //                         versionId: codeActionCount
+            //                     },
+            //                     isPreferred: true
+            //                 });
+            //             }
+            //         });
+
+            //         return { actions, dispose: () => {} };
+            //     }
+            // });
+            // Attach validation function to editor changes
+            editor.getModel().onDidChangeContent(() => validate());
+            // Initial validation
+            validate();
+            // Function to resize the editor
+            function resizeEditor() {
+                editor.layout();
+            }
+            document.getElementById("btn-copy").addEventListener('click', () => {
+                var editorText = editor.getModel().getValue().replace(/#/g, ";");
+                var copyMessage = document.getElementById("cm")
+                var copyMessageText = document.getElementById("cm-message")
+                var copyMessageIcon = document.getElementById("cm-icon")
+                var warningAlert = document.getElementById("wa")
+                var warningAlertCopyAnyway = document.getElementById("wa-btn-error")
+                var warningAlertCancelButton = document.getElementById("wa-btn")
+                var warningAlertCancelXmark = document.getElementById("wa-xmark")
+                var warningAlertMessage = document.getElementById("wa-message")
+                var warningAlertProblem = document.getElementById("wa-problem")
+                console.log(editorText)
+                navigator.clipboard.writeText(editorText).then(() => {
+                    if (errors > 0 || warnings > 0) {
+                        warningAlert.style.opacity = 1;
+                        warningAlert.style.visibility = "visible";
+                        var error_s = "";
+                        var warning_s = "";
+                        if (errors > 1 || errors == 0) {
+                            error_s = "s";
+                        }
+                        if (warnings > 1 || warnings == 0) {
+                            warning_s = "s";
+                        }
+                        if (errors > 0) {
+                            warningAlertMessage.textContent = "Your Code will not work correctly when used in website!";
+                        } else {
+                            warningAlertMessage.textContent = "Your Code will probably not work correctly when used in website!";
+                        }
+                        warningAlertProblem.innerHTML = `<span style="color: #ffa896;">${errors}</span> <span style="color: #cd1c18;">Error${error_s}</span> and <span style="color: #ffea99;">${warnings}</span> <span style="color: #ffde21;">Warning${warning_s}</span>.`;
+                        return;
+                    }
+                    copyMessageText.textContent = "Successfully copied code"
+                    copyMessageIcon.classList = "fa-regular fa-circle-check checkmark"
+                    copyMessage.style.transform = 'translateY(0)';
+                    setTimeout(() => {
+                        copyMessage.style.transform = 'translateY(80px)';
+                    }, 2000); // Hide message after 2 seconds
+                }).catch(err => {
+                    console.error("Failed to copy text: ", err);
+                    copyMessageText.textContent = "Failed to copy code"
+                    copyMessageIcon.classList = "fa-regular fa-circle-xmark xmark"
+                    copyMessage.style.transform = 'translateY(0)';
+                    setTimeout(() => {
+                        copyMessage.style.transform = 'translateY(80px)';
+                    }, 2000); // Hide message after 2 seconds
+                });
+            });
+            document.getElementById("wa-btn-error").addEventListener('click', () => {
+                var warningAlert = document.getElementById("wa")
+                var editorText = editor.getModel().getValue().replace(/#/g, ";");
+                var copyMessage = document.getElementById("cm")
+                var copyMessageText = document.getElementById("cm-message")
+                var copyMessageIcon = document.getElementById("cm-icon")
+                warningAlert.style.opacity = 0;
+                warningAlert.style.visibility = "hidden";
+                setTimeout(() => {
+                    navigator.clipboard.writeText(editorText).then(() => {
+                        copyMessageText.textContent = "Successfully copied code"
+                        copyMessageIcon.classList = "fa-regular fa-circle-check checkmark"
+                        copyMessage.style.transform = 'translateY(0)';
+                        setTimeout(() => {
+                            copyMessage.style.transform = 'translateY(80px)';
+                        }, 2000);
+                    }).catch(err => {
+                        console.error("Failed to copy text: ", err);
+                        copyMessageText.textContent = "Failed to copy code"
+                        copyMessageIcon.classList = "fa-regular fa-circle-xmark xmark"
+                        copyMessage.style.transform = 'translateY(0)';
+                        setTimeout(() => {
+                            copyMessage.style.transform = 'translateY(80px)';
+                        }, 2000);
+                    });
+                }, 200);
+            });
+            document.getElementById("wa-btn").addEventListener('click', () => {
+                var warningAlert = document.getElementById("wa")
+                warningAlert.style.opacity = 0;
+                warningAlert.style.visibility = "hidden";
+            });
+            document.getElementById("wa-xmark").addEventListener('click', () => {
+                var warningAlert = document.getElementById("wa")
+                warningAlert.style.opacity = 0;
+                warningAlert.style.visibility = "hidden";
+            });
+
+
+            // Add event listener for window resize
+            window.addEventListener('resize', resizeEditor);
+
+            // Initial resize to make sure editor fills the window on load
+            resizeEditor();
+        });
+    </script>
+</body>
+</html>
