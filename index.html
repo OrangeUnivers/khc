@@ -503,11 +503,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/loader.js"></script>
     <script>
         let syntaxHighlighting = localStorage.getItem("syntax");
+        console.log(syntaxHighlighting)
         if (syntaxHighlighting == "undefined" || syntaxHighlighting == null || syntaxHighlighting == undefined) {
             syntaxHighlighting = true;
             localStorage.setItem("syntax", true);
         }
+        let lastCode = localStorage.getItem("recent");
+        console.log(lastCode)
+        if (lastCode == "undefined" || lastCode == null || lastCode == undefined) {
+            lastCode = undefined;
+        }
         let copyWithoutErrors = localStorage.getItem("errorCopy");
+        console.log(copyWithoutErrors)
         if (copyWithoutErrors == "undefined" || copyWithoutErrors == null || copyWithoutErrors == undefined) {
             copyWithoutErrors = true;
             localStorage.setItem("errorCopy", true);
@@ -823,7 +830,7 @@
                     // Get the word at the current position
                     const word = model.getWordAtPosition(position);
 
-                    if (!word || !word.word.match(/^isz|jmp|dec|inc|stp$/)) {
+                    if (!word || !word.word.match(/^isz|jmp|dec|inc|stp$/) || syntaxHighlighting == false) {
                         return null;
                     }
 
@@ -837,18 +844,22 @@
                     };
                 }
             });
-
-            
-            // Create the Monaco Editor instance
-            const editor = monaco.editor.create(document.getElementById("container"), {
-                value: [
+            var modelStart;
+            if (lastCode) {
+                modelStart = lastCode.split('\n');
+            } else {
+                modelStart = [
                     'jmp 3',
                     'inc A',
                     'dec B',
                     "isz B",
                     "jmp 1",
                     "stp"
-                ].join('\n'),
+                ];
+            }
+            // Create the Monaco Editor instance
+            const editor = monaco.editor.create(document.getElementById("container"), {
+                value: modelStart.join('\n'),
                 language: 'knowhow',
                 lineNumbers: function(lineNumber) {
                     var lineOffset = 1
@@ -887,7 +898,7 @@
                 const markers = [];
                 errors = 0;
                 warnings = 0;
-
+                localStorage.setItem("recent", text)
                 lines.forEach((line, index) => {
                     // Check for 'jmp' followed by non-numeric
                     var lineOffset = 0
@@ -1059,7 +1070,7 @@
                 var warningAlertProblem = document.getElementById("wa-problem")
                 console.log(editorText)
                 navigator.clipboard.writeText(editorText).then(() => {
-                    if (errors > 0 || warnings > 0) {
+                    if ((errors > 0 || warnings > 0) && (copyWithoutErrors == "true" || copyWithoutErrors == true)) {
                         warningAlert.style.opacity = 1;
                         warningAlert.style.visibility = "visible";
                         warningAlertTitle.textContent = languageDir.gui.warningAlert["title"];
@@ -1137,6 +1148,8 @@
             });
 
             document.getElementById("btn-settings").addEventListener('click', () => {
+                console.log(syntaxHighlighting)
+                console.log(copyWithoutErrors)
                 var settingsWindow = document.getElementById("st")
                 var languageEnglish = document.getElementById("st-lg-english");
                 var languageGerman = document.getElementById("st-lg-german");
@@ -1144,12 +1157,12 @@
                 var editorReminder = document.getElementById("st-ed-reminder");
                 settingsWindow.style.opacity = 1;
                 settingsWindow.style.visibility = "visible";
-                if (syntaxHighlighting) {
+                if (syntaxHighlighting == "true" || syntaxHighlighting == true) {
                     editorSyntax.checked = true;
                 } else {
                     editorSyntax.checked = false;
                 }
-                if (copyWithoutErrors) {
+                if (copyWithoutErrors == "true" || copyWithoutErrors == true) {
                     editorReminder.checked = true;
                 } else {
                     editorReminder.checked = false;
