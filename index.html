@@ -158,20 +158,20 @@
             margin-right: 25px;
             font-size: 25px;
         }
-
+/* 
         .wa i {
             position: absolute;
-            top: 15px; /* Distance from the top edge */
-            right: 18px; /* Distance from the right edge */
-            font-size: 24px; /* Adjust size as needed */
-            color: #858585; /* Red color for the xmark */
-            cursor: pointer; /* Indicate it's clickable */
-            transition: color 0.2s ease-in-out; /* Transition for smooth movement */
+            top: 15px;
+            right: 18px;
+            font-size: 24px;
+            color: #858585;
+            cursor: pointer;
+            transition: color 0.2s ease-in-out;
         }
 
         .wa i:hover {
-            color: #c6c6c6; /* Red color for the xmark */
-        }
+            color: #c6c6c6;
+        } */
         .wa #wa-btn {
             background-color: #3e4446;
             color: #858585;
@@ -226,6 +226,211 @@
             color: #ff9681;
             font-weight: 500;
         }
+        .settings {
+            pointer-events: all;
+            position: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out; /* Transition for smooth movement */
+            background-color: #00000069;
+            height: 100%;
+            width: 100%;
+        }
+
+        .st {
+            min-width: 500px;
+            position: fixed;
+            background-color: #2a2d2e;
+            padding-left: 25px;
+            padding-right: 20px;
+            height: auto;
+            /* max-width: 90%; */
+            border-radius: 25px;
+            width: auto; /* Ensures the width adjusts to content */
+        }
+
+        .st h4 {
+            line-height: 0px;
+            font-weight: 500;
+            font-family: Nunito;
+            color: #c6c6c6;
+            margin-right: 25px;
+            font-size: 35px;
+            margin-bottom: 30px;
+        }
+
+        .st h3 {
+            line-height: 0px;
+            font-weight: 700;
+            font-family: Nunito;
+            color: #c6c6c6;
+            margin-right: 25px;
+            font-size: 50px;
+        }
+
+        .st p {
+            line-height: 15px;
+            /* font-weight: 500; */
+            font-family: Nunito;
+            color: #c6c6c6;
+            margin-right: 25px;
+            font-size: 25px;
+        }
+
+        .corner i {
+            position: absolute;
+            top: 15px; /* Distance from the top edge */
+            right: 18px; /* Distance from the right edge */
+            font-size: 24px; /* Adjust size as needed */
+            color: #858585; /* Red color for the xmark */
+            cursor: pointer; /* Indicate it's clickable */
+            transition: color 0.2s ease-in-out; /* Transition for smooth movement */
+        }
+
+        .corner i:hover {
+            color: #c6c6c6; /* Red color for the xmark */
+        }
+        .st label {
+            font-family: Fira Code, Consolas, 'Courier New', monospace;
+            font-size: 18px;
+            margin-right: 10px;
+            display: inline-block;
+            cursor: pointer;
+            color: #858585;
+            transition: color 0.2s ease-in-out; /* Transition for smooth movement */
+            background-color: #3e4446;
+            padding: 10px;
+            padding-right: 20px;
+            border-radius: 10px;
+        }
+        .st label:hover {
+            color: #c6c6c6;
+        }
+
+        .st input[type="radio"] {
+            margin-right: 0px;
+        }
+
+        .st input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        .st #st-btn-apply {
+            background-color: #3e4446;
+            color: #858585;
+            text-align: center;
+            text-decoration: none;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            margin-bottom: 16px;
+            margin-left: 4px;
+            margin-right: 4px;
+            height: calc(100% - 8px);
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            font-family: Fira Code, Consolas, 'Courier New', monospace;
+            cursor: pointer;
+        }
+        .st #st-btn-apply:hover {
+            background-color: #3e4446;
+            color: #c6c6c6;
+            font-weight: 500;
+        }
+        .st #st-btn-discard {
+            background-color: #463e3e;
+            color: #ffa896;
+            text-align: center;
+            text-decoration: none;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            margin-bottom: 16px;
+            margin-left: 4px;
+            margin-right: 4px;
+            height: calc(100% - 8px);
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            font-family: Fira Code, Consolas, 'Courier New', monospace;
+            cursor: pointer;
+        }
+        .st #st-btn-discard:hover {
+            background-color: #423636;
+            color: #ff9681;
+            font-weight: 500;
+        }
+        .st i {
+            font-size: 20px;
+            /* display: inline-block; */
+            cursor: pointer;
+            color: #858585;
+            transition: color 0.2s ease-in-out; /* Transition for smooth movement */
+            margin: 0;
+            padding: 0;
+        }
+        .st i:hover {
+            color: #c6c6c6;
+        }
+        /* Style for the question mark icon */
+        .help {
+            display: inline-block;
+            font-weight: 400;
+            font-size: 14px;
+            cursor: pointer;
+            color: #555;
+            position: relative;
+        }
+
+        /* Tooltip container */
+        .tooltip {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            font-family: Nunito;
+            color: #c6c6c6;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; /* Position above the question mark */
+            left: 50%;
+            margin-left: -100px; /* Centers the tooltip */
+            opacity: 0;
+            transition: opacity 0.3s;
+            transform: translateX(-10px)
+        }
+
+        /* Tooltip arrow */
+        .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%; /* At the bottom of the tooltip */
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        /* Show tooltip on hover */
+        .help:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -237,17 +442,18 @@
         </div>
     </div>
     <div class="navbar">
-        <h1>KnowHow-Computer Script editor</h1>
-        <a id="btn-copy" title="Copy the code in correct form (recommended)">Copy&nbsp;Code</a>
-        <a href="https://khc.lehrerlezius.de/#assemblerdiv" target="_blank" rel="noopener noreferrer" title="Open KnowHow-Assembler">Open&nbsp;Website</a>
+        <h1 id="title">KnowHow-Computer Script Editor</h1>
+        <a id="btn-copy" title="Copy the code in correct form (recommended)"><i class="fa-regular fa-fw fa-clipboard fa-sm" style="margin-right: 6px;"></i>Copy&nbsp;Code</a>
+        <a id="btn-website" href="https://khc.lehrerlezius.de/#assemblerdiv" target="_blank" rel="noopener noreferrer" title="Open KnowHow-Assembler"><i class="fa-solid fa-fw fa-code-branch fa-sm" style="margin-right: 6px;"></i>Open&nbsp;Website</a>
+        <a id="btn-settings" title="Settings"><i class="fa-solid fa-fw fa-gear fa-sm" style="margin-right: 6px;"></i>Settings</a>
     </div>
     <div style="background: linear-gradient(to bottom, rgb(16, 16, 16) 0%, rgba(16, 16, 16, 0) 100%); width: 100%; height: 5px; margin-top: 50px; margin-bottom: calc(100% - 55px); z-index: 9; position: fixed; opacity: 0.5;"></div>
     <div id="wa" class="warningAlert">
         <div class="wa">
-            <a><i id="wa-xmark" class="fa-solid fa-xmark"></i></a>
+            <a class="corner"><i id="wa-xmark" class="fa-solid fa-xmark"></i></a>
             <h3 id="wa-title">Your Code has Errors!</h3>
             <p id="wa-message">Your Code will probably not work correctly when used in website!</p>
-            <p>Your Codes problems are the following:</p>
+            <p id="wa-list">Your Codes problems are the following:</p>
             <p id="wa-problem" style="font-weight: 600;"><span style="color: #ffa896;">0</span> <span style="color: #cd1c18;">Errors</span> and <span style="color: #ffea99;">0</span> <span style="color: #ffde21;">Warnings</span>.</p>
             <div style="display: flex; align-items: center; justify-content: center;">
                 <a id="wa-btn-error">Copy anyway</a>
@@ -255,30 +461,218 @@
             </div>
         </div>
     </div>
+    <div id="st" class="settings">
+        <div class="st">
+            <a class="corner"><i id="st-xmark" class="fa-solid fa-xmark"></i></a>
+            <h3 id="st-title">Settings</h3>
+            <h4 id="st-tl-language">Language:</h4>
+            <!-- <select id="st-lg">
+                <option value="english">Apple</option>
+                <option value="german">Banana</option>
+            </select> -->
+            <!-- document.getElementById('fruits').value = 'banana'; -->
+            <label for="st-lg-english">
+                <input type="radio" id="st-lg-english" name="language" value="English">
+                English
+            </label>
+            <label for="st-lg-german">
+                <input type="radio" id="st-lg-german" name="language" value="Deutsch">
+                Deutsch
+            </label>
+            <br>
+            <h4 id="st-tl-editor">Editor:</h4>
 
+            <label for="st-ed-syntax"><input type="checkbox" id="st-ed-syntax" name="Editor Options" value="Show syntax">Show syntax</label>
+            <span class="help"><i class="fa-regular fa-circle-question"></i>
+              <span class="tooltip" id="st-ed-syntax-q">If enabled it will show syntax documentation if hovering over function.</span>
+            </span>
+            <br style="display: block; margin: 10px; content: ' ';">
+            <label for="st-ed-reminder"><input type="checkbox" id="st-ed-reminder" name="Editor Options" value="Stop User form copying if errors">Stop copying if errors</label>
+            <span class="help"><i class="fa-regular fa-circle-question"></i>
+              <span class="tooltip" id="st-ed-reminder-q">If any errors are found while copying, it will stop you from copying the code.</span>
+            </span><br><br><br>
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <a id="st-btn-discard">Discard</a>
+                <a id="st-btn-apply">Apply</a>
+            </div>
+        </div>
     </div>
     
     <div id="container"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/loader.js"></script>
     <script>
+        let syntaxHighlighting = localStorage.getItem("syntax");
+        if (syntaxHighlighting == "undefined" || syntaxHighlighting == null || syntaxHighlighting == undefined) {
+            syntaxHighlighting = true;
+            localStorage.setItem("syntax", true);
+        }
+        let copyWithoutErrors = localStorage.getItem("errorCopy");
+        if (copyWithoutErrors == "undefined" || copyWithoutErrors == null || copyWithoutErrors == undefined) {
+            copyWithoutErrors = true;
+            localStorage.setItem("errorCopy", true);
+        }
+        let currentLanguage = localStorage.getItem("lang");
+        if (currentLanguage == "undefined" || currentLanguage == null || currentLanguage == undefined) {
+            currentLanguage = "GER";
+            localStorage.setItem("lang", "GER");
+        }
         var errors = 0
         var warnings = 0
-        var incorrectVar = ""
-        const languageDir = {
-            "commandUnknown": 'Unknown command.',
-            "jmpIncorrect": `Invalid syntax: "jmp" must be followed by a number.`,
-            "jmpMissing": `Missing syntax: "jmp" must be followed by a number.`,
-            "decMissing": `Missing syntax: "dec" must be followed by a variable.`,
-            "incMissing": `Missing syntax: "inc" must be followed by a variable.`,
-            "iszMissing": `Missing syntax: "isz" must be followed by a variable.`,
-            "jmpRange": 'Invalid syntax: "jmp" syntax is out of range.',
-            "jmpLoop": 'Infinite loop: "jmp" will loop infinitly.',
-            "decIncorrect": `Invalid syntax: "dec" must be followed by an variable.`,
-            "incIncorrect": `Invalid syntax: "inc" must be followed by an variable.`,
-            "iszIncorrect": `Invalid syntax: "isz" must be followed by an variable.`,
-            "stpExtra": `Extra call in syntax: "stp" doesn't have an other argument.`
+        const languageLang = {
+            "GER": { 
+                "commandUnknown": 'Unbekannter Operator.',
+                "jmpIncorrect": `Inkorrektes Argument: "jmp" muss mit einer Nummer geführt werden.`,
+                "jmpMissing": `Fehlendes Argument: "jmp" muss mit einer Nummer geführt werden.`,
+                "decMissing": `Fehlendes Argument: "dec" muss mit einer Variabel geführt werden.`,
+                "incMissing": `Fehlendes Argument: "inc" muss mit einer Variabel geführt werden.`,
+                "iszMissing": `Fehlendes Argument: "isz" muss mit einer Variabel geführt werden.`,
+                "jmpRange": 'Inkorrektes Argument: "jmp" springt ausserhalb des Codes.',
+                "jmpLoop": 'Unendliche Schleife: "jmp" springt auf sich selber.',
+                "decIncorrect": `Inkorrektes Argument: "dec" muss mit einer Variabel geführt werden.`,
+                "incIncorrect": `Inkorrektes Argument: "inc" muss mit einer Variabel geführt werden.`,
+                "iszIncorrect": `Inkorrektes Argument: "isz" muss mit einer Variabel geführt werden.`,
+                "stpExtra": `Überflüssiges Argument: "stp" hat keine Argumente.`,
+                commandDocs: {
+                    "isz": { value: `\`isz\` oder "is zero", sprint zur übernächste Linie wenn die Variabel dannach null ist und nur zur nächsten wenn nicht.` },
+                    "jmp": { value: `\`jmp\` oder "jump", springt zur specifizierten Line hin.` },
+                    "dec": { value: `\`dec\` oder "decrease", subtrahiert Variabel dannach um eins.` },
+                    "inc": { value: `\`inc\` oder "increase", addiert Variabel dannach um eins.` },
+                    "stp": { value: `\`stp\` oder "stop", stoppt das Programm.` }
+                },
+                commandUsage: {
+                    "isz": `(funktion) isz variabel`,
+                    "jmp": `(funktion) jmp position`,
+                    "dec": `(funktion) dec variabel`,
+                    "inc": `(funktion) inc variabel`,
+                    "stp": `(funktion) isz`
+                },
+                gui: {
+                    "title": "KnowHow-Computer Script Editor",
+                    "btnCopy": "Code&nbsp;kopieren",
+                    "btnWebsite": "Website&nbsp;öffnen",
+                    "btnSettings": "Einstellungen",
+                    "btnCopyTitle": "Code in richtiger Formatierung kopieren (empfohlen)",
+                    "btnWebsiteTitle": "Den KnowHow-Assembler öffnen",
+                    "btnSettingsTitle": "Websiteeinstellungen",
+                    "cmSuccess": "Code erfolgreich kopiert!",
+                    "cmFail": "Code kopieren fehlgeschlagen!",
+                    "cmSecret": "Du hast nochnichts kopiert 🤨",
+                    warningAlert: {
+                        "title": "Dein Code hat Fehler!",
+                        "messageProbably": "Dein Code wird warscheinlich beim ausführen fehlschlagen!",
+                        "messageDefinitely": "Dein Code wird beim ausführen fehlschlagen!",
+                        "list": "Dein Code hat momentan die folgenden Probleme:",
+                        "problemError": "Fehler",
+                        "problemWarning": "Wahrnung",
+                        "problemErrorPlural": "Fehler",
+                        "problemWarningPlural": "Wahrnungen",
+                        "and": "und",
+                        "btnCopy": "Trotzdem kopieren",
+                        "btnCancel": "Abbrechen"
+                    }
+                }
+            },
+            "ENG": { 
+                "commandUnknown": 'Unknown command.',
+                "jmpIncorrect": `Invalid syntax: "jmp" must be followed by a number.`,
+                "jmpMissing": `Missing syntax: "jmp" must be followed by a number.`,
+                "decMissing": `Missing syntax: "dec" must be followed by a variable.`,
+                "incMissing": `Missing syntax: "inc" must be followed by a variable.`,
+                "iszMissing": `Missing syntax: "isz" must be followed by a variable.`,
+                "jmpRange": 'Invalid syntax: "jmp" syntax is out of range.',
+                "jmpLoop": 'Infinite loop: "jmp" will loop infinitly.',
+                "decIncorrect": `Invalid syntax: "dec" must be followed by an variable.`,
+                "incIncorrect": `Invalid syntax: "inc" must be followed by an variable.`,
+                "iszIncorrect": `Invalid syntax: "isz" must be followed by an variable.`,
+                "stpExtra": `Extra call in syntax: "stp" doesn't have an other argument.`,
+                commandDocs: {
+                    "isz": { value: `\`isz\` or "is zero", jumps two lines infront if variable is zero and jumps to next line instead if it isn't.` },
+                    "jmp": { value: `\`jmp\` or "jump", goes to specified line number next.` },
+                    "dec": { value: `\`dec\` or "decrease", decreases variable by one.` },
+                    "inc": { value: `\`inc\` or "increase", increases variable by one.` },
+                    "stp": { value: `\`stp\` or "stop", stops the program.` }
+                },
+                commandUsage: {
+                    "isz": `(function) isz variable`,
+                    "jmp": `(function) jmp position`,
+                    "dec": `(function) dec variable`,
+                    "inc": `(function) inc variable`,
+                    "stp": `(function) isz`
+                },
+                gui: {
+                    "title": "Papercomputer Script Editor",
+                    "btnCopy": "Copy&nbsp;Code",
+                    "btnWebsite": "Open&nbsp;Website",
+                    "btnSettings": "Settings",
+                    "btnCopyTitle": "Copy the code in correct form (recommended)",
+                    "btnWebsiteTitle": "Open KnowHow-Assembler",
+                    "btnSettingsTitle": "Settings",
+                    "cmSuccess": "Successfully copied code!",
+                    "cmFail": "Failed to copy code",
+                    "cmSecret": "You didn't copy something yet 🤨",
+                    warningAlert: {
+                        "title": "Your Code has Errors!",
+                        "messageProbably": "Your Code will probably not work correctly when used in website!",
+                        "messageDefinitely": "Your Code will not work correctly when used in website!",
+                        "list": "Your Codes problems are the following:",
+                        "problemError": "Error",
+                        "problemWarning": "Warning",
+                        "problemErrorPlural": "Errors",
+                        "problemWarningPlural": "Warnings",
+                        "and": "and",
+                        "btnCopy": "Copy anyway",
+                        "btnCancel": "Cancel"
+                    }
+                }
+            }
         };
+        var incorrectVar = ""
+        var languageDir = languageLang[currentLanguage];
+        function changeLang(lang) {
+            languageDir = languageLang[lang];
+            currentLanguage = lang
+            localStorage.setItem("lang", lang);
+            translateLang()
+        }
+        function translateLang() {
+            var documentTitle = document.getElementById("title");
+            var buttonCopy = document.getElementById("btn-copy");
+            var buttonWebsite = document.getElementById("btn-website");
+            var buttonSettings = document.getElementById("btn-settings");
+            var copyMessage = document.getElementById("cm-message");
+            var languageEnglish = document.getElementById("st-lg-english");
+            var languageGerman = document.getElementById("st-lg-german");
+            var editorSyntax = document.getElementById("st-ed-syntax");
+            var editorReminder = document.getElementById("st-ed-reminder");
+            documentTitle.textContent = languageDir.gui["title"];
+            buttonCopy.innerHTML = `<i class="fa-regular fa-fw fa-clipboard fa-sm" style="margin-right: 6px;"></i>` + languageDir.gui["btnCopy"];
+            buttonWebsite.innerHTML = `<i class="fa-solid fa-fw fa-code-branch fa-sm" style="margin-right: 6px;"></i>` + languageDir.gui["btnWebsite"];
+            buttonSettings.innerHTML = `<i class="fa-solid fa-fw fa-gear fa-sm" style="margin-right: 6px;"></i>` + languageDir.gui["btnSettings"];
+            copyMessage.innerHTML = languageDir.gui["cmSecret"];
+            buttonCopy.title = languageDir.gui["btnCopyTitle"];
+            buttonWebsite.title = languageDir.gui["btnWebsiteTitle"];
+            buttonSettings.title = languageDir.gui["btnSettingsTitle"];
+            if (syntaxHighlighting) {
+                editorSyntax.checked = true;
+            } else {
+                editorSyntax.checked = false;
+            }
+            if (copyWithoutErrors) {
+                editorReminder.checked = true;
+            } else {
+                editorReminder.checked = false;
+            }
+            switch (currentLanguage) {
+                case "GER":
+                    languageGerman.checked = true;
+                case "ENG":
+                    languageEnglish.checked = true;
+                default:
+                    languageGerman.checked = true;
+            }
+        }
+        translateLang()
         require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs' }});
         require(['vs/editor/editor.main'], function() {
             monaco.editor.defineTheme('knowhow-dark', {
@@ -301,15 +695,18 @@
                     root: [
                         // [/jmp\s+\d+/, 'keyword'],
                         // [/jmp\s+\D/, 'error'],
-                        [/dec|inc|isz|jmp/, 'keyword'], // Instructions
-                        [/[A-Z_][A-Z_]*/, 'variable'], // Registers
-                        [/(#|;).*$/, 'comment'], // Comments
-                        [/[0-9]+/, 'number'], // Numbers
-                        // [/[\[\]]/, 'delimiter'], // Brackets
-                        [/stp/, 'end'], // Brackets
-                        [/position/, 'number'], // Hover Text
-                        [/variable/, 'variable'], 
-                        [/function/, 'function']
+                        [/dec|inc|isz|jmp/, 'keyword'],
+                        [/[A-Z_][A-Z_]*/, 'variable'],
+                        [/(#|;).*$/, 'comment'],
+                        [/[0-9]+/, 'number'],
+                        // [/[\[\]]/, 'delimiter'],
+                        [/stp/, 'end'],
+                        [/position/, 'number'],
+                        [/variable/, 'variable'],
+                        [/function/, 'function'],
+                        [/variabel/i, 'variable'],
+                        [/position/i, 'number'],
+                        [/funktion/i, 'function']
                     ]
                 }
             });
@@ -390,30 +787,12 @@
                         return null;
                     }
 
-                    // if (word.word.match(/\))
-
-                    // Define some hover information
-                    const commandDocs = {
-                        "isz": { value: `\`${word.word}\` or "is zero", jumps two lines infront if variable is zero and jumps to next line instead if it isn't.` },
-                        "jmp": { value: `\`${word.word}\` or "jump", goes to specified line number next.` },
-                        "dec": { value: `\`${word.word}\` or "decrease", decreases variable by one.` },
-                        "inc": { value: `\`${word.word}\` or "increase", increases variable by one.` },
-                        "stp": { value: `\`${word.word}\` or "stop", stops the program.` }
-                    };
-                    const commandUsage = {
-                        "isz": `(function) ${word.word} variable`,
-                        "jmp": `(function) ${word.word} position`,
-                        "dec": `(function) ${word.word} variable`,
-                        "inc": `(function) ${word.word} variable`,
-                        "stp": `(function) ${word.word}`
-                    }
-
                     // Return the hover information
                     return {
                         contents: [
                             { value: `
-    ${commandUsage[(word.word)]}` }, // Markdown or plain text
-                            commandDocs[(word.word)]
+    ${languageDir.commandUsage[word.word]}` }, // Markdown or plain text
+                            languageDir.commandDocs[word.word]
                         ]
                     };
                 }
@@ -471,13 +850,27 @@
 
                 lines.forEach((line, index) => {
                     // Check for 'jmp' followed by non-numeric
+                    var lineOffset = 0
+                    editor.getModel().getValue().split("\n").forEach((line1, index1) => {
+                        if (index1 < index) {
+                            if (line1.slice(0, 1) == "#") {
+                                lineOffset += 1;
+                            }
+                            if (line1.slice(0, 1) == " ") {
+                                lineOffset += 1;
+                            }
+                            if (line1.slice(0, 1) == "") {
+                                lineOffset += 1;
+                            }
+                        }
+                    });
                     const matches = {
                         "commandUnknown": (!line.match(/^((isz|jmp|dec|inc)\s+)|(stp$)/) && line.replace(" ", "") != "" && !line.match(/^#|;/)) && !line.match(/^stp\s*$/),
                         "jmpIncorrect": line.match(/^jmp\s+\d*\D+\d*$/) || line.match(/^jmp\s\D+\d+\D+$/),
                         "jmpDecIncIszMissing": line.match(/^(jmp|dec|inc|isz)\s*$/),
                         "stpExtra": line.slice(4) != "" && !(line.slice(4).replace(" ", "") != "") && line.match(/^stp\s+/) && !line.match(/^stp\s\s$/),
-                        "jmpRange": lines.length <= parseInt(line.slice(4)),
-                        "jmpLoop": index == parseInt(line.slice(4)),
+                        "jmpRange": lines.length - lineOffset <= parseInt(line.slice(4)),
+                        "jmpLoop": index - lineOffset == parseInt(line.slice(4)),
                         "decIncIszIncorrect": line.match(/^(dec|inc|isz)\s+[A-Z]*[^A-Z]+[A-Z]*$/) || line.match(/^(dec|inc|isz)\s[^A-Z]+[A-Z]+[^A-Z]+$/)
                     };
                     if (matches["jmpDecIncIszMissing"]) {
@@ -511,9 +904,9 @@
                             endColumn: line.length + 1
                         });
                     } else if (matches["jmpRange"]) {
-                        errors += 1;
+                        warnings += 1;
                         markers.push({
-                            severity: monaco.MarkerSeverity.Error,
+                            severity: monaco.MarkerSeverity.Warning,
                             message: languageDir["jmpRange"],
                             startLineNumber: index + 1,
                             startColumn: 5,
@@ -617,33 +1010,39 @@
                 var copyMessageText = document.getElementById("cm-message")
                 var copyMessageIcon = document.getElementById("cm-icon")
                 var warningAlert = document.getElementById("wa")
+                var warningAlertTitle = document.getElementById("wa-title")
                 var warningAlertCopyAnyway = document.getElementById("wa-btn-error")
                 var warningAlertCancelButton = document.getElementById("wa-btn")
                 var warningAlertCancelXmark = document.getElementById("wa-xmark")
                 var warningAlertMessage = document.getElementById("wa-message")
+                var warningAlertList = document.getElementById("wa-list")
                 var warningAlertProblem = document.getElementById("wa-problem")
                 console.log(editorText)
                 navigator.clipboard.writeText(editorText).then(() => {
                     if (errors > 0 || warnings > 0) {
                         warningAlert.style.opacity = 1;
                         warningAlert.style.visibility = "visible";
-                        var error_s = "";
-                        var warning_s = "";
+                        warningAlertTitle.textContent = languageDir.gui.warningAlert["title"];
+                        warningAlertList.textContent = languageDir.gui.warningAlert["list"];
+                        warningAlertCopyAnyway.textContent = languageDir.gui.warningAlert["btnCopy"];
+                        warningAlertCancelButton.textContent = languageDir.gui.warningAlert["btnCancel"];
+                        var error_s = languageDir.gui.warningAlert["problemError"];
+                        var warning_s = languageDir.gui.warningAlert["problemWarning"];
                         if (errors > 1 || errors == 0) {
-                            error_s = "s";
+                            error_s = languageDir.gui.warningAlert["problemErrorPlural"];
                         }
                         if (warnings > 1 || warnings == 0) {
-                            warning_s = "s";
+                            warning_s = languageDir.gui.warningAlert["problemWarningPlural"];
                         }
                         if (errors > 0) {
-                            warningAlertMessage.textContent = "Your Code will not work correctly when used in website!";
+                            warningAlertMessage.textContent = languageDir.gui.warningAlert["messageDefinitely"];
                         } else {
-                            warningAlertMessage.textContent = "Your Code will probably not work correctly when used in website!";
+                            warningAlertMessage.textContent = languageDir.gui.warningAlert["messageProbably"];
                         }
-                        warningAlertProblem.innerHTML = `<span style="color: #ffa896;">${errors}</span> <span style="color: #cd1c18;">Error${error_s}</span> and <span style="color: #ffea99;">${warnings}</span> <span style="color: #ffde21;">Warning${warning_s}</span>.`;
+                        warningAlertProblem.innerHTML = `<span style="color: #ffa896;">${errors}</span> <span style="color: #cd1c18;">${error_s}</span> ${languageDir.gui.warningAlert["and"]} <span style="color: #ffea99;">${warnings}</span> <span style="color: #ffde21;">${warning_s}</span>.`;
                         return;
                     }
-                    copyMessageText.textContent = "Successfully copied code"
+                    copyMessageText.textContent = languageDir.gui["cmSuccess"];
                     copyMessageIcon.classList = "fa-regular fa-circle-check checkmark"
                     copyMessage.style.transform = 'translateY(0)';
                     setTimeout(() => {
@@ -651,7 +1050,7 @@
                     }, 2000); // Hide message after 2 seconds
                 }).catch(err => {
                     console.error("Failed to copy text: ", err);
-                    copyMessageText.textContent = "Failed to copy code"
+                    copyMessageText.textContent = languageDir.gui["cmFail"];
                     copyMessageIcon.classList = "fa-regular fa-circle-xmark xmark"
                     copyMessage.style.transform = 'translateY(0)';
                     setTimeout(() => {
@@ -669,7 +1068,7 @@
                 warningAlert.style.visibility = "hidden";
                 setTimeout(() => {
                     navigator.clipboard.writeText(editorText).then(() => {
-                        copyMessageText.textContent = "Successfully copied code"
+                        copyMessageText.textContent = languageDir.gui["cmSuccess"];
                         copyMessageIcon.classList = "fa-regular fa-circle-check checkmark"
                         copyMessage.style.transform = 'translateY(0)';
                         setTimeout(() => {
@@ -677,7 +1076,7 @@
                         }, 2000);
                     }).catch(err => {
                         console.error("Failed to copy text: ", err);
-                        copyMessageText.textContent = "Failed to copy code"
+                        copyMessageText.textContent = languageDir.gui["cmFail"];
                         copyMessageIcon.classList = "fa-regular fa-circle-xmark xmark"
                         copyMessage.style.transform = 'translateY(0)';
                         setTimeout(() => {
@@ -695,6 +1094,45 @@
                 var warningAlert = document.getElementById("wa")
                 warningAlert.style.opacity = 0;
                 warningAlert.style.visibility = "hidden";
+            });
+
+            document.getElementById("btn-settings").addEventListener('click', () => {
+                console.log("runny")
+                var settingsWindow = document.getElementById("st")
+                var languageEnglish = document.getElementById("st-lg-english");
+                var languageGerman = document.getElementById("st-lg-german");
+                var editorSyntax = document.getElementById("st-ed-syntax");
+                var editorReminder = document.getElementById("st-ed-reminder");
+                settingsWindow.style.opacity = 1;
+                settingsWindow.style.visibility = "visible";
+                if (syntaxHighlighting) {
+                    editorSyntax.checked = true;
+                } else {
+                    editorSyntax.checked = false;
+                }
+                if (copyWithoutErrors) {
+                    editorReminder.checked = true;
+                } else {
+                    editorReminder.checked = false;
+                }
+                switch (currentLanguage) {
+                    case "GER":
+                        languageGerman.checked = true;
+                    case "ENG":
+                        languageEnglish.checked = true;
+                    default:
+                        languageGerman.checked = true;
+                }
+            });
+            document.getElementById("st-btn-discard").addEventListener('click', () => {
+                var settingsWindow = document.getElementById("st")
+                settingsWindow.style.opacity = 0;
+                settingsWindow.style.visibility = "hidden";
+            });
+            document.getElementById("st-xmark").addEventListener('click', () => {
+                var settingsWindow = document.getElementById("st")
+                settingsWindow.style.opacity = 0;
+                settingsWindow.style.visibility = "hidden";
             });
 
 
