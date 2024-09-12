@@ -482,12 +482,12 @@
             <br>
             <h4 id="st-tl-editor">Editor:</h4>
 
-            <label for="st-ed-syntax"><input type="checkbox" id="st-ed-syntax" name="Editor Options" value="Show syntax">Show syntax</label>
+            <label for="st-ed-syntax"><input type="checkbox" name="Editor Options" value="Show syntax" id="st-ed-syntax"><span id="st-ed-syntax-label">Show syntax</span></label>
             <span class="help"><i class="fa-regular fa-circle-question"></i>
               <span class="tooltip" id="st-ed-syntax-q">If enabled it will show syntax documentation if hovering over function.</span>
             </span>
             <br style="display: block; margin: 10px; content: ' ';">
-            <label for="st-ed-reminder"><input type="checkbox" id="st-ed-reminder" name="Editor Options" value="Stop User form copying if errors">Stop copying if errors</label>
+            <label for="st-ed-reminder"><input type="checkbox" name="Editor Options" value="Stop User form copying if errors" id="st-ed-reminder"><span id="st-ed-reminder-label">Stop copying if errors</span></label>
             <span class="help"><i class="fa-regular fa-circle-question"></i>
               <span class="tooltip" id="st-ed-reminder-q">If any errors are found while copying, it will stop you from copying the code.</span>
             </span><br><br><br>
@@ -576,7 +576,7 @@
                         "languages": "Sprachen:",
                         "editor": "Editor:",
                         "showSyntax": "Syntax anzeigen",
-                        "showSyntaxDoc": "Fall aktiviert wird die Syntax Documentaton über Funktionen beim darüberschweben angezeigt.",
+                        "showSyntaxDoc": "Falls aktiviert wird die Syntax Documentaton über Funktionen beim darüberschweben angezeigt.",
                         "stopCopy": "Stop kopieren wenn Fehler auftreten",
                         "stopCopyDoc": "Fall jene Fehler gefunden werden wirst du gestoppt vom kopieren.",
                         "btnDiscard": "Rückgängig",
@@ -667,11 +667,15 @@
             var languageGerman = document.getElementById("st-lg-german");
             var editorSyntax = document.getElementById("st-ed-syntax");
             var editorReminder = document.getElementById("st-ed-reminder");
+            var editorSyntaxLabel = document.getElementById("st-ed-syntax-label");
+            var editorReminderLabel = document.getElementById("st-ed-reminder-label");
             var settingsTitle = document.getElementById("st-title");
             var settingsLanguage = document.getElementById("st-tl-language");
             var settingsEditor = document.getElementById("st-tl-editor");
-            var editorSyntaxTooltip = document.getElementById("st-ed-syntax");
+            var editorSyntaxTooltip = document.getElementById("st-ed-syntax-q");
             var editorReminderTooltip = document.getElementById("st-ed-reminder-q");
+            var settingsDiscard = document.getElementById("st-btn-discard");
+            var settingsApply = document.getElementById("st-btn-apply");
             documentTitle.textContent = languageDir.gui["title"];
             buttonCopy.innerHTML = `<i class="fa-regular fa-fw fa-clipboard fa-sm" style="margin-right: 6px;"></i>` + languageDir.gui["btnCopy"];
             buttonWebsite.innerHTML = `<i class="fa-solid fa-fw fa-code-branch fa-sm" style="margin-right: 6px;"></i>` + languageDir.gui["btnWebsite"];
@@ -680,13 +684,15 @@
             buttonCopy.title = languageDir.gui["btnCopyTitle"];
             buttonWebsite.title = languageDir.gui["btnWebsiteTitle"];
             buttonSettings.title = languageDir.gui["btnSettingsTitle"];
-            settingsTitle.title = languageDir.gui.settings["title"];
-            settingsLanguage.title = languageDir.gui.settings["languages"];
-            settingsEditor.title = languageDir.gui.settings["editor"];
-            editorSyntax.title = languageDir.gui.settings["showSyntax"];
-            editorSyntaxTooltip.title = languageDir.gui.settings["showSyntaxDoc"];
-            editorReminder.title = languageDir.gui.settings["showSyntax"];
-            editorReminderTooltip.title = languageDir.gui.settings["stopCopyDoc"];
+            settingsTitle.textContent = languageDir.gui.settings["title"];
+            settingsLanguage.textContent = languageDir.gui.settings["languages"];
+            settingsEditor.textContent = languageDir.gui.settings["editor"];
+            editorSyntaxLabel.textContent = languageDir.gui.settings["showSyntax"];
+            editorSyntaxTooltip.textContent = languageDir.gui.settings["showSyntaxDoc"];
+            editorReminderLabel.textContent = languageDir.gui.settings["stopCopy"];
+            editorReminderTooltip.textContent = languageDir.gui.settings["stopCopyDoc"];
+            settingsDiscard.textContent = languageDir.gui.settings["btnDiscard"];
+            settingsApply.textContent = languageDir.gui.settings["btnApply"];
             if (syntaxHighlighting) {
                 editorSyntax.checked = true;
             } else {
@@ -1131,7 +1137,6 @@
             });
 
             document.getElementById("btn-settings").addEventListener('click', () => {
-                console.log("runny")
                 var settingsWindow = document.getElementById("st")
                 var languageEnglish = document.getElementById("st-lg-english");
                 var languageGerman = document.getElementById("st-lg-german");
@@ -1149,17 +1154,42 @@
                 } else {
                     editorReminder.checked = false;
                 }
-                switch (currentLanguage) {
-                    case "GER":
-                        languageGerman.checked = true;
-                    case "ENG":
-                        languageEnglish.checked = true;
-                    default:
-                        languageGerman.checked = true;
+                if (currentLanguage == "GER") {
+                    languageGerman.checked = true;
+                } else if (currentLanguage == "ENG") {
+                    languageEnglish.checked = true;
                 }
             });
             document.getElementById("st-btn-discard").addEventListener('click', () => {
                 var settingsWindow = document.getElementById("st")
+                settingsWindow.style.opacity = 0;
+                settingsWindow.style.visibility = "hidden";
+            });
+            document.getElementById("st-btn-apply").addEventListener('click', () => {
+                var settingsWindow = document.getElementById("st")
+                var languageEnglish = document.getElementById("st-lg-english");
+                var languageGerman = document.getElementById("st-lg-german");
+                var editorSyntax = document.getElementById("st-ed-syntax");
+                var editorReminder = document.getElementById("st-ed-reminder");
+                var clockedLanguage = "NAN";
+                if (languageEnglish.checked) {
+                    clockedLanguage = "ENG";
+                }
+                else if (languageGerman.checked) {
+                    clockedLanguage = "GER";
+                }
+                if (clockedLanguage != currentLanguage) {
+                    currentLanguage = clockedLanguage;
+                    console.log(currentLanguage)
+                    localStorage.setItem("lang", currentLanguage);
+                    languageDir = languageLang[currentLanguage];
+                    translateLang()
+                }
+                syntaxHighlighting = editorSyntax.checked;
+                copyWithoutErrors = editorReminder.checked;
+                localStorage.setItem("syntax", syntaxHighlighting);
+                localStorage.setItem("errorCopy", copyWithoutErrors);
+                
                 settingsWindow.style.opacity = 0;
                 settingsWindow.style.visibility = "hidden";
             });
