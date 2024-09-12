@@ -667,6 +667,11 @@
             var languageGerman = document.getElementById("st-lg-german");
             var editorSyntax = document.getElementById("st-ed-syntax");
             var editorReminder = document.getElementById("st-ed-reminder");
+            var settingsTitle = document.getElementById("st-title");
+            var settingsLanguage = document.getElementById("st-tl-language");
+            var settingsEditor = document.getElementById("st-tl-editor");
+            var editorSyntaxTooltip = document.getElementById("st-ed-syntax");
+            var editorReminderTooltip = document.getElementById("st-ed-reminder-q");
             documentTitle.textContent = languageDir.gui["title"];
             buttonCopy.innerHTML = `<i class="fa-regular fa-fw fa-clipboard fa-sm" style="margin-right: 6px;"></i>` + languageDir.gui["btnCopy"];
             buttonWebsite.innerHTML = `<i class="fa-solid fa-fw fa-code-branch fa-sm" style="margin-right: 6px;"></i>` + languageDir.gui["btnWebsite"];
@@ -675,6 +680,13 @@
             buttonCopy.title = languageDir.gui["btnCopyTitle"];
             buttonWebsite.title = languageDir.gui["btnWebsiteTitle"];
             buttonSettings.title = languageDir.gui["btnSettingsTitle"];
+            settingsTitle.title = languageDir.gui.settings["title"];
+            settingsLanguage.title = languageDir.gui.settings["languages"];
+            settingsEditor.title = languageDir.gui.settings["editor"];
+            editorSyntax.title = languageDir.gui.settings["showSyntax"];
+            editorSyntaxTooltip.title = languageDir.gui.settings["showSyntaxDoc"];
+            editorReminder.title = languageDir.gui.settings["showSyntax"];
+            editorReminderTooltip.title = languageDir.gui.settings["stopCopyDoc"];
             if (syntaxHighlighting) {
                 editorSyntax.checked = true;
             } else {
