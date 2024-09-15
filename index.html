@@ -61,6 +61,14 @@
             color: #c6c6c6;
             font-weight: 500;
         }
+        .navbar .dangerous i {
+            margin-right: 8px;
+        }
+        .navbar .dangerous:hover {
+            background-color: #423636 !important;
+            color: #ff9681 !important;
+            font-weight: 500
+        }
         .navbar h1 {
             font-family: Fira Code, Consolas, 'Courier New', monospace;
             color: #c6c6c6;
@@ -274,9 +282,10 @@
 
         .st p {
             line-height: 15px;
+            font-size: 15px !important;
             /* font-weight: 500; */
-            font-family: Nunito;
-            color: #c6c6c6;
+            font-family: Fira Code, Consolas, 'Courier New', monospace;
+            color: #3e4446;
             margin-right: 25px;
             font-size: 25px;
         }
@@ -431,78 +440,195 @@
             visibility: visible;
             opacity: 1;
         }
+        #blur {
+            transition: filter 0.5s ease;
+        }
+        .resetOverlay {
+            background-color: #1e1e1e;
+            transition: opacity 0.3s ease;
+            pointer-events: all;
+            position: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 15;
+            visibility: hidden;
+            opacity: 0;
+            height: 100vh;
+            width: 100%;
+        }
+        .resetOverlay i {
+            color: #858585;
+            font-size: 250px;
+            transition: opacity 1s ease, margin 3s ease;
+        }
+        .resetOverlay .model {
+            height: 408px;
+            width: 749px;
+            background-color: #2a2d2e;
+            border-radius: 10px;
+            margin-top: 450px;
+            opacity: 0;
+            position: fixed;
+            transition: opacity 0.8s ease;
+            font-size: 24px;
+            font-family: Fira Code, Consolas, 'Courier New', monospace;
+            padding-right: 10px;
+            padding-left: 10px;
+            padding-top: 6px;
+            padding-bottom: 6px;
+            color: #c6c6c6;
+            white-space: pre;
+            pointer-events: none;
+        }
+        .resetOverlay p {
+            position: fixed;
+            font-size: 24px;
+            font-family: Nunito;
+            color: #c6c6c6;
+            font-weight: 500;
+            margin-bottom: 50px;
+            transition: opacity 0.8s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .resetOverlay a {
+            background-color: #463e3e;
+            color: #ffa896;
+            text-align: center;
+            text-decoration: none;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            margin-bottom: 16px;
+            margin-left: 4px;
+            margin-right: 4px;
+            height: min-content;
+            width: min-content;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            font-family: Fira Code, Consolas, 'Courier New', monospace;
+            cursor: pointer;
+            margin-top: 885px;
+            transition: opacity 0.8s ease;
+            visibility: hidden;
+            opacity: 0;
+            z-index: 17;
+        }
+        .resetOverlay a:hover {
+            background-color: #423636;
+            color: #ff9681;
+            font-weight: 500;
+        }
     </style>
-</head>
+</head> 
 <body>
-    <div id="cm" class="copyMessage">
-        <div class="cm">
-            <i id="cm-icon" class="fa-regular fa-circle-question question"></i>
-            <p>​ ​ ​</p>
-            <p id="cm-message">You didn't copy something yet 🤨</p>
+    <div id="rs" class="resetOverlay">
+        <i id="rs-spinner" class="fa-solid fa-rotate fa-spin fa-2xl" style="opacity: 0; position: fixed;"></i>
+        <div id="rs-model" class="model">
+            Why you here 🤨
         </div>
+        <p id="rs-erease">Ereasing Code...</p>
+        <p id="rs-replace">Replacing Code...</p>
+        <p id="rs-complete" style="margin-bottom: 0px; margin-top: 360px;">Code Reset Successfully!</p>
+        <!-- <p id="rs-complete" style="margin-bottom: 0px; margin-top: 0px; opacity: 1;">Code Compleasd!</p> -->
+        <a id="rs-cancel">Cancel</a>
     </div>
-    <div class="navbar">
-        <h1 id="title">KnowHow-Computer Script Editor</h1>
-        <a id="btn-reset" title="Go back to how it was in the start"><i class="fa-regular fa-fw fa-clipboard fa-sm" style="margin-right: 6px;"></i>Reset</a>
-        <a id="btn-copy" title="Copy the code in correct form (recommended)"><i class="fa-regular fa-fw fa-clipboard fa-sm" style="margin-right: 6px;"></i>Copy&nbsp;Code</a>
-        <a id="btn-website" href="https://khc.lehrerlezius.de/#assemblerdiv" target="_blank" rel="noopener noreferrer" title="Open KnowHow-Assembler"><i class="fa-solid fa-fw fa-code-branch fa-sm" style="margin-right: 6px;"></i>Open&nbsp;Website</a>
-        <a id="btn-settings" title="Settings"><i class="fa-solid fa-fw fa-gear fa-sm" style="margin-right: 6px;"></i>Settings</a>
-    </div>
-    <div style="background: linear-gradient(to bottom, rgb(16, 16, 16) 0%, rgba(16, 16, 16, 0) 100%); width: 100%; height: 5px; margin-top: 50px; margin-bottom: calc(100% - 55px); z-index: 9; position: fixed; opacity: 0.5;"></div>
-    <div id="wa" class="warningAlert">
-        <div class="wa">
-            <a class="corner"><i id="wa-xmark" class="fa-solid fa-xmark"></i></a>
-            <h3 id="wa-title">Your Code has Errors!</h3>
-            <p id="wa-message">Your Code will probably not work correctly when used in website!</p>
-            <p id="wa-list">Your Codes problems are the following:</p>
-            <p id="wa-problem" style="font-weight: 600;"><span style="color: #ffa896;">0</span> <span style="color: #cd1c18;">Errors</span> and <span style="color: #ffea99;">0</span> <span style="color: #ffde21;">Warnings</span>.</p>
-            <div style="display: flex; align-items: center; justify-content: center;">
-                <a id="wa-btn-error">Copy anyway</a>
-                <a id="wa-btn">Cancel</a>
+    <div id="blur">
+        <div id="cm" class="copyMessage">
+            <div class="cm">
+                <i id="cm-icon" class="fa-regular fa-circle-question question"></i>
+                <p>​ ​ ​</p>
+                <p id="cm-message">You didn't copy something yet 🤨</p>
             </div>
         </div>
-    </div>
-    <div id="st" class="settings">
-        <div class="st">
-            <a class="corner"><i id="st-xmark" class="fa-solid fa-xmark"></i></a>
-            <h3 id="st-title">Settings</h3>
-            <h4 id="st-tl-language">Language:</h4>
-            <!-- <select id="st-lg">
-                <option value="english">Apple</option>
-                <option value="german">Banana</option>
-            </select> -->
-            <!-- document.getElementById('fruits').value = 'banana'; -->
-            <label for="st-lg-english">
-                <input type="radio" id="st-lg-english" name="language" value="English">
-                English
-            </label>
-            <label for="st-lg-german">
-                <input type="radio" id="st-lg-german" name="language" value="Deutsch">
-                Deutsch
-            </label>
-            <br>
-            <h4 id="st-tl-editor">Editor:</h4>
+        <div class="navbar" id="navbar">
+            <h1 id="title">KnowHow-Computer Script Editor</h1>
+            <a id="btn-copy" title="Copy the code in correct form (recommended)"><i class="fa-solid fa-fw fa-clipboard fa-sm" style="margin-right: 6px;"></i>Copy&nbsp;Code</a>
+            <a id="btn-website" href="https://khc.lehrerlezius.de/#assemblerdiv" target="_blank" rel="noopener noreferrer" title="Open KnowHow-Assembler"><i class="fa-solid fa-fw fa-code-branch fa-sm" style="margin-right: 6px;"></i>Open&nbsp;Website</a>
+            <a id="btn-settings" title="Settings"><i class="fa-solid fa-fw fa-gear fa-sm" style="margin-right: 6px;"></i>Settings</a>
+            <a id="btn-reset" title="Go back to how it was in the start" class="dangerous"><i class="fa-regular fa-fw fa-trash-can fa-sm"></i>Reset</a>
+        </div>
+        <div style="background: linear-gradient(to bottom, rgb(16, 16, 16) 0%, rgba(16, 16, 16, 0) 100%); width: 100%; height: 5px; margin-top: 50px; margin-bottom: calc(100% - 55px); z-index: 9; position: fixed; opacity: 0.5;"></div>
+        <div id="wa" class="warningAlert">
+            <div class="wa">
+                <a class="corner"><i id="wa-xmark" class="fa-solid fa-xmark"></i></a>
+                <h3 id="wa-title">Your Code has Errors!</h3>
+                <p id="wa-message">Your Code will probably not work correctly when used in website!</p>
+                <p id="wa-list">Your Codes problems are the following:</p>
+                <p id="wa-problem" style="font-weight: 600;"><span style="color: #ffa896;">0</span> <span style="color: #cd1c18;">Errors</span> and <span style="color: #ffea99;">0</span> <span style="color: #ffde21;">Warnings</span>.</p>
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <a id="wa-btn-error">Copy anyway</a>
+                    <a id="wa-btn">Cancel</a>
+                </div>
+            </div>
+        </div>
+        <div id="st" class="settings">
+            <div class="st">
+                <a class="corner"><i id="st-xmark" class="fa-solid fa-xmark"></i></a>
+                <h3 id="st-title">Settings</h3>
+                <h4 id="st-tl-language">Language:</h4>
+                <!-- <select id="st-lg">
+                    <option value="english">Apple</option>
+                    <option value="german">Banana</option>
+                </select> -->
+                <!-- document.getElementById('fruits').value = 'banana'; -->
+                <label for="st-lg-english">
+                    <input type="radio" id="st-lg-english" name="language" value="English">
+                    English
+                </label>
+                <label for="st-lg-german">
+                    <input type="radio" id="st-lg-german" name="language" value="Deutsch">
+                    Deutsch
+                </label>
+                <br>
+                <h4 id="st-tl-editor">Editor:</h4>
 
-            <label for="st-ed-syntax"><input type="checkbox" name="Editor Options" value="Show syntax" id="st-ed-syntax"><span id="st-ed-syntax-label">Show syntax</span></label>
-            <span class="help"><i class="fa-regular fa-circle-question"></i>
-              <span class="tooltip" id="st-ed-syntax-q">If enabled it will show syntax documentation if hovering over function.</span>
-            </span>
-            <br style="display: block; margin: 10px; content: ' ';">
-            <label for="st-ed-reminder"><input type="checkbox" name="Editor Options" value="Stop User form copying if errors" id="st-ed-reminder"><span id="st-ed-reminder-label">Stop copying if errors</span></label>
-            <span class="help"><i class="fa-regular fa-circle-question"></i>
-              <span class="tooltip" id="st-ed-reminder-q">If any errors are found while copying, it will stop you from copying the code.</span>
-            </span><br><br><br>
-            <div style="display: flex; align-items: center; justify-content: center;">
-                <a id="st-btn-discard">Discard</a>
-                <a id="st-btn-apply">Apply</a>
+                <label for="st-ed-syntax"><input type="checkbox" name="Editor Options" value="Show syntax" id="st-ed-syntax"><span id="st-ed-syntax-label">Show syntax</span></label>
+                <span class="help"><i class="fa-regular fa-circle-question"></i>
+                  <span class="tooltip" id="st-ed-syntax-q">If enabled it will show syntax documentation if hovering over function.</span>
+                </span>
+                <br style="display: block; margin: 10px; content: ' ';">
+                <label for="st-ed-reminder"><input type="checkbox" name="Editor Options" value="Stop User form copying if errors" id="st-ed-reminder"><span id="st-ed-reminder-label">Stop copying if errors</span></label>
+                <span class="help"><i class="fa-regular fa-circle-question"></i>
+                  <span class="tooltip" id="st-ed-reminder-q">If any errors are found while copying, it will stop you from copying the code.</span>
+                </span>
+                <br style="display: block; margin: 10px; content: ' ';">
+                <label for="st-ed-beta"><input type="checkbox" name="Editor Options" value="Stop User form copying if errors" id="st-ed-beta"><span id="st-ed-beta-label">Use beta version</span></label>
+                <span class="help"><i class="fa-regular fa-circle-question"></i>
+                  <span class="tooltip" id="st-ed-beta-q">Uses the new beta version (Its prone to break and is not safe). Restart required.</span>
+                </span>
+                <br style="display: block; margin: 10px; content: ' ';">
+                <p id="version">Version</p>
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <a id="st-btn-discard">Discard</a>
+                    <a id="st-btn-apply">Apply</a>
+                </div>
             </div>
         </div>
+
+        <div id="container"></div>
     </div>
-    
-    <div id="container"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/loader.js"></script>
     <script>
+        let version = {regular: "v0.3", beta: "v0.31 Beta"}
+        let isBeta = localStorage.getItem("beta");
+        console.log(isBeta)
+        if (isBeta == "undefined" || isBeta == null || isBeta == undefined) {
+            isBeta = false;
+            localStorage.setItem("beta", false);
+        }
+        if (isBeta == "false" || isBeta == false) {
+            setTimeout(() => {
+                document.getElementById('btn-reset').remove()
+            }, 10);
+        }
         let syntaxHighlighting = localStorage.getItem("syntax");
         console.log(syntaxHighlighting)
         if (syntaxHighlighting == "undefined" || syntaxHighlighting == null || syntaxHighlighting == undefined) {
@@ -524,6 +650,12 @@
         if (currentLanguage == "undefined" || currentLanguage == null || currentLanguage == undefined) {
             currentLanguage = "GER";
             localStorage.setItem("lang", "GER");
+        }
+        if (isBeta == "false" || isBeta == false) {
+            document.getElementById('version').textContent = version.regular
+        }
+        if (isBeta == "true" || isBeta == true) {
+            document.getElementById('version').textContent = version.beta
         }
         var errors = 0
         var warnings = 0
@@ -587,6 +719,8 @@
                         "showSyntaxDoc": "Falls aktiviert wird die Syntax Documentaton über Funktionen beim darüberschweben angezeigt.",
                         "stopCopy": "Stop kopieren wenn Fehler auftreten",
                         "stopCopyDoc": "Fall jene Fehler gefunden werden wirst du gestoppt vom kopieren.",
+                        "isBeta": "Beta version benutzten",
+                        "isBetaDoc": "Benutzt neue Beta version (Achtung: Ist sehr unstabil). Ein Neustart ist erforderlich.",
                         "btnDiscard": "Rückgängig",
                         "btnApply": "Anwenden"
                     }
@@ -651,6 +785,8 @@
                         "showSyntaxDoc": "If enabled it will show syntax documentation if hovering over function.",
                         "stopCopy": "Stop copying if errors",
                         "stopCopyDoc": "If any errors are found while copying, it will stop you from copying the code.",
+                        "isBeta": "Use beta version",
+                        "isBetaDoc": "Uses the new beta version (Its prone to break and is not safe). Restart required.",
                         "btnDiscard": "Discard",
                         "btnApply": "Apply"
                     }
@@ -674,14 +810,15 @@
             var languageEnglish = document.getElementById("st-lg-english");
             var languageGerman = document.getElementById("st-lg-german");
             var editorSyntax = document.getElementById("st-ed-syntax");
-            var editorReminder = document.getElementById("st-ed-reminder");
             var editorSyntaxLabel = document.getElementById("st-ed-syntax-label");
             var editorReminderLabel = document.getElementById("st-ed-reminder-label");
+            var editorBetaLabel = document.getElementById("st-ed-beta-label");
             var settingsTitle = document.getElementById("st-title");
             var settingsLanguage = document.getElementById("st-tl-language");
             var settingsEditor = document.getElementById("st-tl-editor");
             var editorSyntaxTooltip = document.getElementById("st-ed-syntax-q");
             var editorReminderTooltip = document.getElementById("st-ed-reminder-q");
+            var editorBetaTooltip = document.getElementById("st-ed-beta-q");
             var settingsDiscard = document.getElementById("st-btn-discard");
             var settingsApply = document.getElementById("st-btn-apply");
             documentTitle.textContent = languageDir.gui["title"];
@@ -699,26 +836,10 @@
             editorSyntaxTooltip.textContent = languageDir.gui.settings["showSyntaxDoc"];
             editorReminderLabel.textContent = languageDir.gui.settings["stopCopy"];
             editorReminderTooltip.textContent = languageDir.gui.settings["stopCopyDoc"];
+            editorBetaLabel.textContent = languageDir.gui.settings["isBeta"];
+            editorBetaTooltip.textContent = languageDir.gui.settings["isBetaDoc"];
             settingsDiscard.textContent = languageDir.gui.settings["btnDiscard"];
             settingsApply.textContent = languageDir.gui.settings["btnApply"];
-            if (syntaxHighlighting) {
-                editorSyntax.checked = true;
-            } else {
-                editorSyntax.checked = false;
-            }
-            if (copyWithoutErrors) {
-                editorReminder.checked = true;
-            } else {
-                editorReminder.checked = false;
-            }
-            switch (currentLanguage) {
-                case "GER":
-                    languageGerman.checked = true;
-                case "ENG":
-                    languageEnglish.checked = true;
-                default:
-                    languageGerman.checked = true;
-            }
         }
         translateLang()
         require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs' }});
@@ -845,11 +966,7 @@
                     };
                 }
             });
-            var modelStart;
-            if (lastCode) {
-                modelStart = lastCode.split('\n');
-            } else {
-                modelStart = [
+            var resetValue = [
                     'jmp 3',
                     'inc A',
                     'dec B',
@@ -857,6 +974,11 @@
                     "jmp 1",
                     "stp"
                 ];
+            var modelStart;
+            if (lastCode) {
+                modelStart = lastCode.split('\n');
+            } else {
+                modelStart = resetValue;
             }
             // Create the Monaco Editor instance
             const editor = monaco.editor.create(document.getElementById("container"), {
@@ -1056,6 +1178,207 @@
             function resizeEditor() {
                 editor.layout();
             }
+            var canceled = false;
+            document.getElementById("btn-reset").addEventListener('click', () => {
+                var blur = document.getElementById("blur")
+                var resetOverlay = document.getElementById("rs")
+                var resetOverlaySpinner = document.getElementById("rs-spinner")
+                var resetOverlayModel = document.getElementById("rs-model")
+                var resetOverlayErease = document.getElementById("rs-erease")
+                var resetOverlayReplace = document.getElementById("rs-replace")
+                var resetOverlayComplete = document.getElementById("rs-complete")
+                var resetOverlayCancel = document.getElementById("rs-cancel")
+                var copyMessage = document.getElementById("cm")
+                copyMessage.style.transform = 'translateY(80px)';
+                setTimeout(() => {
+                    copyMessage.style.visibility = "hidden";
+                    blur.style.filter = 'blur(10px)';
+                    setTimeout(() => {
+                        resetOverlay.style.visibility = 'visible';
+                        resetOverlay.style.opacity = 1;
+                        setTimeout(() => {
+                            resetOverlaySpinner.style.opacity = 1;
+                            setTimeout(() => {
+                                resetOverlaySpinner.style.marginBottom = '400px';
+                                setTimeout(() => {
+                                    var oldText = editor.getModel().getValue().split("\n")
+                                    var newText = [];
+                                    oldText.forEach((line, index) => {
+                                        if (index >= 13) {
+                                            return;
+                                        }
+                                        newText.push(line.slice(0, 52) + (" ".repeat(52 - line.slice(0, 52).length)));
+                                    });
+                                    for (let i = newText.length; i <= 12; i++) {
+                                        newText[i] = " ".repeat(52)
+                                    }
+                                    resetOverlayErease.style.opacity = 1;
+                                    resetOverlayModel.innerText = newText.join("\n");
+                                    resetOverlayModel.style.opacity = 1;
+                                    resetOverlayCancel.style.visibility = 'visible';
+                                    resetOverlayCancel.style.opacity = 1;
+                                    setTimeout(() => {
+                                        let linedText = newText.map(line => line.split(""));
+                                        function animateTextForeward() {
+                                            let allCharsUpdated = true;
+                                            for (let i = 0; i < linedText.length; i++) {
+                                                for (let j = 0; j < linedText[i].length; j++) {
+                                                    if (linedText[i][j] !== "#") {
+                                                        allCharsUpdated = false;
+                                                        linedText[i][j] = "#";
+                                                        resetOverlayModel.innerText = linedText.map(line => line.join("")).join("\n");
+                                                        break;
+                                                    }
+                                                }
+                                                if (!allCharsUpdated) break;
+                                            }
+                                            if (!allCharsUpdated) {
+                                                setTimeout(animateTextForeward, 10);
+                                            }
+                                        }
+                                        function animateTextBackward(originalText, delay = 10) {
+                                            let currentText = originalText.map(line => line.split(""));
+                                            function updateText() {
+                                                let updated = false;
+                                                for (let i = currentText.length - 1; i >= 0; i--) {
+                                                    for (let j = currentText[i].length - 1; j >= 0; j--) {
+                                                        if (currentText[i][j] === "#") {
+                                                            switch (`${i}-${j}`) {
+                                                                case "0-0": currentText[i][j] = "j"; break;
+                                                                case "0-1": currentText[i][j] = "m"; break;
+                                                                case "0-2": currentText[i][j] = "p"; break;
+                                                                case "0-4": currentText[i][j] = "3"; break;
+                                                                case "1-0": currentText[i][j] = "i"; break;
+                                                                case "1-1": currentText[i][j] = "n"; break;
+                                                                case "1-2": currentText[i][j] = "c"; break;
+                                                                case "1-4": currentText[i][j] = "A"; break;
+                                                                case "2-0": currentText[i][j] = "d"; break;
+                                                                case "2-1": currentText[i][j] = "e"; break;
+                                                                case "2-2": currentText[i][j] = "c"; break;
+                                                                case "2-4": currentText[i][j] = "B"; break;
+                                                                case "3-0": currentText[i][j] = "i"; break;
+                                                                case "3-1": currentText[i][j] = "s"; break;
+                                                                case "3-2": currentText[i][j] = "z"; break;
+                                                                case "3-4": currentText[i][j] = "B"; break;
+                                                                case "4-0": currentText[i][j] = "j"; break;
+                                                                case "4-1": currentText[i][j] = "m"; break;
+                                                                case "4-2": currentText[i][j] = "p"; break;
+                                                                case "4-4": currentText[i][j] = "1"; break;
+                                                                case "5-0": currentText[i][j] = "s"; break;
+                                                                case "5-1": currentText[i][j] = "t"; break;
+                                                                case "5-2": currentText[i][j] = "p"; break;
+                                                                default: currentText[i][j] = " ";
+                                                            }
+                                                            updated = true;
+                                                            resetOverlayModel.innerText = currentText.map(line => line.join("")).join("\n");
+                                                            setTimeout(updateText, delay);
+                                                            return;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            updateText();
+                                        }
+                                        animateTextForeward();
+                                        setTimeout(() => {
+                                            if (!canceled) {
+                                                resetOverlayErease.style.opacity = 0;
+                                                newText = resetOverlayModel.innerText.split("\n")
+                                                resetOverlayReplace.style.opacity = 1;
+                                                animateTextBackward(newText, 5);
+                                                setTimeout(() => {
+                                                    if (!canceled) {
+                                                        resetOverlayModel.style.opacity = 0;
+                                                        resetOverlayReplace.style.opacity = 0;
+                                                        resetOverlayCancel.style.opacity = 0;
+                                                        setTimeout(() => {
+                                                            if (!canceled) {
+                                                                resetOverlayCancel.style.visibility = 'hidden';
+                                                                setTimeout(() => {
+                                                                    if (!canceled) {
+                                                                        resetOverlaySpinner.style.marginBottom = '0px';
+                                                                    }
+                                                                }, 200);
+                                                                setTimeout(() => {
+                                                                    if (!canceled) {
+                                                                        resetOverlayComplete.textContent = "Code Reset Successfull!";
+                                                                        resetOverlayComplete.style.opacity = 1;
+                                                                        setTimeout(() => {
+                                                                            if (!canceled) {
+                                                                                blur.style.filter = 'none';
+                                                                                setTimeout(() => {
+                                                                                    if (!canceled) {
+                                                                                        editor.getModel().setValue(resetValue.join("\n"))
+                                                                                        resetOverlay.style.opacity = 0;
+                                                                                        setTimeout(() => {
+                                                                                            if (!canceled) {
+                                                                                                copyMessage.style.visibility = "visible";
+                                                                                                resetOverlay.style.visibility = 'hidden';
+                                                                                                resetOverlayComplete.style.opacity = 0;
+                                                                                            }
+                                                                                        }, 300)
+                                                                                    }
+                                                                                }, 200)
+                                                                            }
+                                                                        }, 2400);
+                                                                    }
+                                                                }, 2400);
+                                                            }
+                                                        }, 1000);
+                                                    }
+                                                }, 5400);
+                                            }
+                                        }, 7900);
+                                    }, 800);
+                                }, 2000);
+                            }, 1300);
+                        }, 300);
+                    }, 200);
+                }, 500);
+            });
+            document.getElementById("rs-cancel").addEventListener('click', () => {
+                console.log("sad")
+                canceled = true;
+                var blur = document.getElementById("blur")
+                var resetOverlay = document.getElementById("rs")
+                var resetOverlaySpinner = document.getElementById("rs-spinner")
+                var resetOverlayModel = document.getElementById("rs-model")
+                var resetOverlayErease = document.getElementById("rs-erease")
+                var resetOverlayReplace = document.getElementById("rs-replace")
+                var resetOverlayComplete = document.getElementById("rs-complete")
+                var resetOverlayCancel = document.getElementById("rs-cancel")
+                var copyMessage = document.getElementById("cm")
+                resetOverlayModel.style.opacity = 0;
+                resetOverlayReplace.style.opacity = 0;
+                resetOverlayComplete.style.opacity = 0;
+                resetOverlayErease.style.opacity = 0;
+                resetOverlayCancel.style.opacity = 0;
+                setTimeout(() => {
+                    resetOverlayCancel.style.visibility = 'hidden';
+                    setTimeout(() => {
+                        resetOverlaySpinner.style.marginBottom = '0px';
+                    }, 200);
+                    // resetOverlayComplete.style.transform = "none";
+                    setTimeout(() => {
+                        resetOverlayComplete.textContent = "Code Reset Cancalled!";
+                        resetOverlayComplete.style.opacity = 1;
+                        setTimeout(() => {
+                            // resetOverlay.style.visibility = 'hidden';
+                            
+                            blur.style.filter = 'none';
+                            setTimeout(() => {
+                                resetOverlay.style.opacity = 0;
+                                setTimeout(() => {
+                                    copyMessage.style.visibility = "visible";
+                                    resetOverlay.style.visibility = 'hidden';
+                                    resetOverlayComplete.style.opacity = 0;
+                                    canceled = false;
+                                }, 300)
+                            }, 200)
+                        }, 2400);
+                    }, 2400);
+                }, 1000);
+            });
             document.getElementById("btn-copy").addEventListener('click', () => {
                 var editorText = editor.getModel().getValue().replace(/#/g, ";");
                 var copyMessage = document.getElementById("cm")
@@ -1156,6 +1479,7 @@
                 var languageGerman = document.getElementById("st-lg-german");
                 var editorSyntax = document.getElementById("st-ed-syntax");
                 var editorReminder = document.getElementById("st-ed-reminder");
+                var editorBeta = document.getElementById("st-ed-beta");
                 settingsWindow.style.opacity = 1;
                 settingsWindow.style.visibility = "visible";
                 if (syntaxHighlighting == "true" || syntaxHighlighting == true) {
@@ -1167,6 +1491,11 @@
                     editorReminder.checked = true;
                 } else {
                     editorReminder.checked = false;
+                }
+                if (isBeta == "true" || isBeta == true) {
+                    editorBeta.checked = true;
+                } else {
+                    editorBeta.checked = false;
                 }
                 if (currentLanguage == "GER") {
                     languageGerman.checked = true;
@@ -1185,6 +1514,7 @@
                 var languageGerman = document.getElementById("st-lg-german");
                 var editorSyntax = document.getElementById("st-ed-syntax");
                 var editorReminder = document.getElementById("st-ed-reminder");
+                var editorBeta = document.getElementById("st-ed-beta");
                 var clockedLanguage = "NAN";
                 if (languageEnglish.checked) {
                     clockedLanguage = "ENG";
@@ -1201,8 +1531,34 @@
                 }
                 syntaxHighlighting = editorSyntax.checked;
                 copyWithoutErrors = editorReminder.checked;
+                if (isBeta == "true") {isBeta = true}
+                if (isBeta == "false") {isBeta = false}
+                if (editorBeta.checked != isBeta) {
+                    if (editorBeta.checked == true) {
+                        const resetButton = document.createElement('a');
+
+                        // Step 2: Set the text content of the paragraph
+                        resetButton.innerHTML = '<i class="fa-regular fa-fw fa-trash-can fa-sm"></i>Reset';
+                        resetButton.classList = "dangerous";
+                        resetButton.title = "Go back to how it was in the start";
+                        resetButton.id = "btn-reset";
+
+                        // Step 3: Find the container element to which we will append the new paragraph
+                        const navbar = document.getElementById('navbar');
+
+                        // Step 4: Append the new paragraph to the container
+                        navbar.appendChild(resetButton);
+                        document.getElementById('version').textContent = version.beta;
+                    }
+                    if (editorBeta.checked == false) {
+                        document.getElementById('btn-reset').remove();
+                        document.getElementById('version').textContent = version.regular;
+                    }
+                }
+                isBeta = editorBeta.checked;
                 localStorage.setItem("syntax", syntaxHighlighting);
                 localStorage.setItem("errorCopy", copyWithoutErrors);
+                localStorage.setItem("beta", isBeta);
                 
                 settingsWindow.style.opacity = 0;
                 settingsWindow.style.visibility = "hidden";
