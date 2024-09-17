@@ -551,7 +551,8 @@
             <h1 id="title">KnowHow-Computer Script Editor</h1>
             <a id="btn-copy" title="Copy the code in correct form (recommended)"><i class="fa-solid fa-fw fa-clipboard fa-sm" style="margin-right: 6px;"></i>Copy&nbsp;Code</a>
             <a id="btn-website" href="https://khc.lehrerlezius.de/#assemblerdiv" target="_blank" rel="noopener noreferrer" title="Open KnowHow-Assembler"><i class="fa-solid fa-fw fa-code-branch fa-sm" style="margin-right: 6px;"></i>Open&nbsp;Website</a>
-            <a id="btn-settings" title="Settings"><i class="fa-solid fa-fw fa-gear fa-sm" style="margin-right: 6px;"></i>Settings</a>
+            <a id="btn-settings" title="View settings"><i class="fa-solid fa-fw fa-gear fa-sm" style="margin-right: 6px;"></i>Settings</a>
+            <a id="btn-projects" title="View/Save projects"><i class="fa-solid fa-fw fa-bars-progress fa-sm" style="margin-right: 6px;"></i>Projects</a>
             <a id="btn-reset" title="Go back to how it was in the start" class="dangerous"><i class="fa-regular fa-fw fa-trash-can fa-sm"></i>Reset</a>
         </div>
         <div style="background: linear-gradient(to bottom, rgb(16, 16, 16) 0%, rgba(16, 16, 16, 0) 100%); width: 100%; height: 5px; margin-top: 50px; margin-bottom: calc(100% - 55px); z-index: 9; position: fixed; opacity: 0.5;"></div>
@@ -617,7 +618,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/loader.js"></script>
     <script>
-        let version = {regular: "v0.3", beta: "v0.31 Beta"}
+        let version = {regular: "v0.3", beta: "v0.32 Beta"}
         let isBeta = localStorage.getItem("beta");
         console.log(isBeta)
         if (isBeta == "undefined" || isBeta == null || isBeta == undefined) {
@@ -627,7 +628,8 @@
         if (isBeta == "false" || isBeta == false) {
             setTimeout(() => {
                 document.getElementById('btn-reset').remove()
-            }, 10);
+                document.getElementById('btn-projects').remove()
+            }, 100);
         }
         let syntaxHighlighting = localStorage.getItem("syntax");
         console.log(syntaxHighlighting)
@@ -760,7 +762,7 @@
                     "btnSettings": "Settings",
                     "btnCopyTitle": "Copy the code in correct form (recommended)",
                     "btnWebsiteTitle": "Open KnowHow-Assembler",
-                    "btnSettingsTitle": "Settings",
+                    "btnSettingsTitle": "View settings",
                     "cmSuccess": "Successfully copied code!",
                     "cmFail": "Failed to copy code",
                     "cmSecret": "You didn't copy something yet 🤨",
@@ -1544,14 +1546,27 @@
                         resetButton.id = "btn-reset";
 
                         // Step 3: Find the container element to which we will append the new paragraph
-                        const navbar = document.getElementById('navbar');
 
                         // Step 4: Append the new paragraph to the container
+                        const navbar = document.getElementById('navbar');
+                        const projectButton = document.createElement('a');
+
+                        // Step 2: Set the text content of the paragraph
+                        projectButton.innerHTML = '<i class="fa-solid fa-fw fa-bars-progress fa-sm" style="margin-right: 6px;"></i>Projects';
+                        projectButton.classList = "";
+                        projectButton.title = "View/Save projects";
+                        projectButton.id = "btn-projects";
+
+                        // Step 3: Find the container element to which we will append the new paragraph
+
+                        // Step 4: Append the new paragraph to the container
+                        navbar.appendChild(projectButton);
                         navbar.appendChild(resetButton);
                         document.getElementById('version').textContent = version.beta;
                     }
                     if (editorBeta.checked == false) {
                         document.getElementById('btn-reset').remove();
+                        document.getElementById('btn-projects').remove();
                         document.getElementById('version').textContent = version.regular;
                     }
                 }
